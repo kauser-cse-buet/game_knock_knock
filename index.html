@@ -13,7 +13,9 @@
 
 <tw-storydata name="Knock Knock!" startnode="16" creator="Twine" creator-version="2.1.3" ifid="CC00E933-4F0B-4422-99E6-653781893272" format="Harlowe" format-version="2.0.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">.redo{ display: none;}
 .undo{ display: none;}
+
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">
+
 
 
 
@@ -141,6 +143,7 @@ It has multiple drawers.
 
 [[open your eyes|Tiny room]]
 
+
 (set: $luggageKey to (datamap: &quot;name&quot;, &quot;small sized key&quot;, &quot;description&quot;, &quot;This is a small key, no idea what is this for.&quot;, &quot;pickupText&quot;, &quot;You take the key.&quot;, &quot;isCarried&quot;, false))
 
 (set: $hammer to (datamap: &quot;name&quot;, &quot;hammer&quot;, &quot;description&quot;, &quot;This is a Framing hammer, the handle is made of wood.&quot;, &quot;pickupText&quot;, &quot;You take the hammer.&quot;, &quot;isCarried&quot;, false))
@@ -167,7 +170,10 @@ It has multiple drawers.
 
 (set: $luggage to (datamap: &quot;name&quot;, &quot;luggage&quot;, &quot;description&quot;, &quot;Red colored luggage.&quot;, &quot;isLocked&quot;, true))
 (set: $carryingItems to false)
-(set: $previousPassage to &quot;&quot;)</tw-passagedata><tw-passagedata pid="17" name="Door open" tags="" position="772,675">The door is wide open. A zombie enters and approaching towards you to kill you. 
+(set: $previousPassage to &quot;&quot;)
+
+
+&lt;div align=center style=&quot;font-size: 16px;color: gray;&quot;&gt;&lt;p&gt;This game is developed by Md. Kauser Ahmmed. email: mahmmed@uno.edu.&lt;/p&gt; Number of times played: &lt;a href=&#x27;http://www.counter12.com&#x27;&gt;&lt;img src=&#x27;http://www.counter12.com/img-bYBAW3ZZBY4D2282-2.gif&#x27; border=&#x27;0&#x27; alt=&#x27;free web counter&#x27;&gt;&lt;/a&gt;&lt;script type=&#x27;text/javascript&#x27; src=&#x27;http://www.counter12.com/ad.js?id=bYBAW3ZZBY4D2282&#x27;&gt;&lt;/script&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Door open" tags="" position="772,675">The door is wide open. A zombie enters and approaching towards you to kill you. 
 
 (if: $carryingItems is false)[
 	You have nothing but hands. (link: &quot;Punch the zombie&quot;)[
