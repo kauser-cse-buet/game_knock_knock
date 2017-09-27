@@ -14,7 +14,9 @@
 <tw-storydata name="Knock Knock!" startnode="16" creator="Twine" creator-version="2.1.3" ifid="CC00E933-4F0B-4422-99E6-653781893272" format="Harlowe" format-version="2.0.1" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">.redo{ display: none;}
 .undo{ display: none;}
 
+
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">
+
 
 
 
@@ -206,7 +208,7 @@ It has multiple drawers.
 
 (if: $zombie&#x27;s isDead is true)[
 	The zombie is laying on the floor. It&#x27;s not moving anymore. You carefully move over the zombie and came out of the door. You found yourself in a long corridor with many other rooms like this. Deads are marching towards you slowly. The only thing you can do is running away.
-]</tw-passagedata><tw-passagedata pid="19" name="Safe" tags="" position="296,743">(if: $safe&#x27;s isLocked is false)[
+]</tw-passagedata><tw-passagedata pid="19" name="Safe" tags="" position="295,743">(if: $safe&#x27;s isLocked is false)[
 	The safe is open. (if: $gun&#x27;s isCarried is false)[There&#x27;s a gun inside.]
 	(if: $gun&#x27;s isCarried is true)[There&#x27;s nothing inside.]
 	
@@ -221,7 +223,7 @@ It has multiple drawers.
 		  (set: $safe&#x27;s isLocked to false)(goto: &quot;Safe&quot;)
 	  ]
 	  (if: $safeCombination is not &quot;2137&quot;)[
-		  The passcode mismatched. The safe combination is reset. Try another combination.
+		  The passcode mismatched. The safe combination is reset. Try another combination. (set: $safeCombination to &quot;&quot;)
 	  ]
   ]
 	It&#x27;s a 4 digit combination.
