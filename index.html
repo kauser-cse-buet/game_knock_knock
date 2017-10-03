@@ -15,7 +15,9 @@
 .undo{ display: none;}
 
 
+
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">
+
 
 
 
@@ -52,7 +54,24 @@ You stand inside a very small room.
 ]
 </tw-passagedata><tw-passagedata pid="3" name="Look up" tags="" position="493,509">Just ceiling, nothing else. 
 
-[[Done|Tiny room]]</tw-passagedata><tw-passagedata pid="4" name="Look down" tags="" position="630,531">The floor is covered with brown colored carpet. There is a luggage on the floor. 
+[[Done|Tiny room]]</tw-passagedata><tw-passagedata pid="4" name="Look down" tags="" position="630,531">(if: $carpet&#x27;s isTorn is false)[
+	The floor is covered with brown colored carpet.
+	(if: $carryingItems is true)[
+		(if: $plyer&#x27;s isCarried is true)[
+			(link: &quot;Tear the carpet open with the plyer&quot;)[(set: $carpet&#x27;s isTorn to true)(goto: &quot;Look down&quot;)]
+	  ]
+  ]
+]
+
+(if: $carpet&#x27;s isTorn is true)[
+	(if: $knife&#x27;s isCarried is false) [The carpet is torn down. There is a knife.]
+
+  	(if: $knife&#x27;s isCarried is true) [The carpet is torn down.]
+
+  	(if: $knife&#x27;s isCarried is false)[(link: &quot;Take knife&quot;)[(set: $selectedItem to $knife)(set: $knife&#x27;s isCarried to true)(set: $previousPassage to &quot;Look down&quot;)(goto: &quot;Item Acquired&quot;)]]
+]
+
+There is a luggage on the floor. 
 
 (if: $luggage&#x27;s isLocked is true)[
 	The luggage is locked.	
@@ -82,7 +101,7 @@ You stand inside a very small room.
 ]
 
 (if: $picture&#x27;s isTorn is true)[
-	There is a number written inside. It says: &quot;2-1-3-7&quot;.
+	There is a number written inside. It says: $key_combination.
 ]
 
 [[Done|Tiny room]]</tw-passagedata><tw-passagedata pid="8" name="Luggage" tags="" position="634,675">(if: $luggage&#x27;s isLocked is false)[
@@ -115,9 +134,12 @@ It has multiple drawers.
   	[(link: &quot;Take Key&quot;)[(set: $selectedItem to $doorKey)(set: $doorKey&#x27;s isCarried to true)(set: $previousPassage to &quot;Table&quot;)(goto: &quot;Item Acquired&quot;)]]
   ]
 ]
-[[Done|RightSide]]</tw-passagedata><tw-passagedata pid="10" name="Book" tags="" position="1224,863">The Book titled - &quot;Alice&#x27;s Adventures in Wonderland&quot;, written by Lewis Carroll. 
+[[Done|RightSide]]
+[[Go to main room|Tiny room]]</tw-passagedata><tw-passagedata pid="10" name="Book" tags="" position="1224,863">The Book titled - &quot;Alice&#x27;s Adventures in Wonderland&quot;, written by Lewis Carroll. 
 
-[[Done|Table]]</tw-passagedata><tw-passagedata pid="11" name="Vase" tags="" position="1495,866">It&#x27;s white porcelain vase with a bird drawn on it. The drawing has an artistic touch. 
+[[Done|Table]]
+
+[[Go to main room|Tiny room]]</tw-passagedata><tw-passagedata pid="11" name="Vase" tags="" position="1495,866">It&#x27;s white porcelain vase with a bird drawn on it. The drawing has an artistic touch. 
 
 (if: $carryingItems is true)[
 	  (if: $hammer&#x27;s isCarried is true)[
@@ -125,19 +147,26 @@ It has multiple drawers.
 		]
   ]
   
-  [[Done|Table]]</tw-passagedata><tw-passagedata pid="12" name="DrawerOne" tags="" position="1083,857">(if: $knife&#x27;s isCarried is false) [There is a knife.]
+  [[Done|Table]]
+  
+  [[Go to main room|Tiny room]]</tw-passagedata><tw-passagedata pid="12" name="DrawerOne" tags="" position="1083,857">(if: $plyer&#x27;s isCarried is false) [There is a plyer.]
 
-  	(if: $knife&#x27;s isCarried is true) [The drawer is empty.]
+  	(if: $plyer&#x27;s isCarried is true) [The drawer is empty.]
 
-  	(if: $knife&#x27;s isCarried is false)[(link: &quot;Take knife&quot;)[(set: $selectedItem to $knife)(set: $knife&#x27;s isCarried to true)(set: $previousPassage to &quot;DrawerOne&quot;)(goto: &quot;Item Acquired&quot;)]]
+  	(if: $plyer&#x27;s isCarried is false)[(link: &quot;Take plyer&quot;)[(set: $selectedItem to $plyer)(set: $plyer&#x27;s isCarried to true)(set: $previousPassage to &quot;DrawerOne&quot;)(goto: &quot;Item Acquired&quot;)]]
 
-[[Done|Table]]</tw-passagedata><tw-passagedata pid="13" name="DrawerTwo" tags="" position="1355,853">(if: $luggageKey&#x27;s isCarried is false) [There is a small key.]
+
+[[Done|Table]]
+
+[[Go to main room|Tiny room]]</tw-passagedata><tw-passagedata pid="13" name="DrawerTwo" tags="" position="1355,853">(if: $luggageKey&#x27;s isCarried is false) [There is a small key.]
 
 (if: $luggageKey&#x27;s isCarried is true) [There is a nothing.]
 
 (if: $luggageKey&#x27;s isCarried is false)[(link: &quot;Take the small Key&quot;)[(set: $selectedItem to $luggageKey)(set: $luggageKey&#x27;s isCarried to true)(set: $previousPassage to &quot;DrawerTwo&quot;)(goto: &quot;Item Acquired&quot;)]]
 
-[[Done|Table]]</tw-passagedata><tw-passagedata pid="14" name="Item Description" tags="" position="177,850">(print: $selectedItem&#x27;s description)
+[[Done|Table]]
+
+[[Go to main room|Tiny room]]</tw-passagedata><tw-passagedata pid="14" name="Item Description" tags="" position="177,850">(print: $selectedItem&#x27;s description)
 (link: &quot;Done&quot;)[(goto: $previousPassage)]</tw-passagedata><tw-passagedata pid="15" name="Item Acquired" tags="" position="962,1001">(print: $selectedItem&#x27;s pickupText)
 (set: $carryingItems to true)
 
@@ -160,9 +189,13 @@ It has multiple drawers.
 
 (set: $knife to (datamap: &quot;name&quot;, &quot;knife&quot;, &quot;description&quot;, &quot;This is a shiny knife made of steel.&quot;, &quot;pickupText&quot;, &quot;You take the knife.&quot;, &quot;isCarried&quot;, false))
 
+(set: $plyer to (datamap: &quot;name&quot;, &quot;plyer&quot;, &quot;description&quot;, &quot;This is a plyer.&quot;, &quot;pickupText&quot;, &quot;You take the player.&quot;, &quot;isCarried&quot;, false))
+
 (set: $gun to (datamap: &quot;name&quot;, &quot;gun&quot;, &quot;description&quot;, &quot;This is a shotgun.&quot;, &quot;pickupText&quot;, &quot;You take the gun.&quot;, &quot;isCarried&quot;, false))
 
 (set: $picture to (datamap: &quot;name&quot;, &quot;picture&quot;, &quot;description&quot;, &quot;This is a potrait of a man.&quot;, &quot;isTorn&quot;, false))
+
+(set: $carpet to (datamap: &quot;name&quot;, &quot;carpet&quot;, &quot;description&quot;, &quot;This is a brown colored carpet.&quot;, &quot;isTorn&quot;, false))
 
 (set: $safe to (datamap: &quot;name&quot;, &quot;safe&quot;, &quot;description&quot;, &quot;This is a digital safe, requires a number combination to unlock.&quot;, &quot;isLocked&quot;, true))
 
@@ -173,6 +206,9 @@ It has multiple drawers.
 (set: $luggage to (datamap: &quot;name&quot;, &quot;luggage&quot;, &quot;description&quot;, &quot;Red colored luggage.&quot;, &quot;isLocked&quot;, true))
 (set: $carryingItems to false)
 (set: $previousPassage to &quot;&quot;)
+
+(set: $comb1 to (text: (random: 0, 9)))(set: $comb2 to (text: (random: 0, 9)))(set: $comb3 to (text: (random: 0, 9)))(set: $comb4 to (text: (random: 0, 9)))
+(set: $key_combination to $comb1 + $comb2 + $comb3 + $comb4)
 
 
 &lt;div align=center style=&quot;font-size: 16px;color: gray;&quot;&gt;&lt;p&gt;This game is developed by Md. Kauser Ahmmed. email: mahmmed@uno.edu.&lt;/p&gt; Number of times played: &lt;a href=&#x27;http://www.counter12.com&#x27;&gt;&lt;img src=&#x27;http://www.counter12.com/img-bYBAW3ZZBY4D2282-2.gif&#x27; border=&#x27;0&#x27; alt=&#x27;free web counter&#x27;&gt;&lt;/a&gt;&lt;script type=&#x27;text/javascript&#x27; src=&#x27;http://www.counter12.com/ad.js?id=bYBAW3ZZBY4D2282&#x27;&gt;&lt;/script&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Door open" tags="" position="772,675">The door is wide open. A zombie enters and approaching towards you to kill you. 
@@ -207,7 +243,7 @@ It has multiple drawers.
 ]
 
 (if: $zombie&#x27;s isDead is true)[
-	The zombie is laying on the floor. It&#x27;s not moving anymore. You carefully move over the zombie and came out of the door. You found yourself in a long corridor with many other rooms like this. Deads are marching towards you slowly. The only thing you can do is running away.
+	The zombie is laying on the floor. It&#x27;s not moving anymore. You carefully move over the zombie and came out of the door. You found yourself in a long corridor with many other rooms like this. A old man with lab suit comes towards you, shakes your hand and says, &quot;Congratulation, Project Reincarnation is successful. You completed your mission.&quot;
 ]</tw-passagedata><tw-passagedata pid="19" name="Safe" tags="" position="295,743">(if: $safe&#x27;s isLocked is false)[
 	The safe is open. (if: $gun&#x27;s isCarried is false)[There&#x27;s a gun inside.]
 	(if: $gun&#x27;s isCarried is true)[There&#x27;s nothing inside.]
@@ -219,10 +255,10 @@ It has multiple drawers.
 	(if: $safeCombinationCount is 4)[
 	  (set: $safeCombinationCount to 0)
 
-	  (if: $safeCombination is &quot;2137&quot;)[
+	  (if: $safeCombination is $key_combination)[
 		  (set: $safe&#x27;s isLocked to false)(goto: &quot;Safe&quot;)
 	  ]
-	  (if: $safeCombination is not &quot;2137&quot;)[
+	  (if: $safeCombination is not $key_combination)[
 		  The passcode mismatched. The safe combination is reset. Try another combination. (set: $safeCombination to &quot;&quot;)
 	  ]
   ]
